@@ -235,7 +235,6 @@ docker compose down -v
 * **Transformación de datos**  
   En esta fase se aplicaron reglas de limpieza adicionales:  
   - Se descartaron valores corruptos en columnas clave (`id`, `company_id`, `status`).  
-  - Se aplicó normalización en `status`: aunque en RAW aparecían hasta 10 valores distintos (ej. *refunded*, *expired*, *charged_back*, además de códigos inválidos como `0xFFFF`), se mapearon a 4 categorías principales (*paid, pending_payment, voided, pre_authorized*). Esto simplificó el análisis y estandarizó los reportes.  
 
 * **Elección por Postgres**  
   La elección viene por diversos motivos: se trata una base de datos relacional madura, ampliamente usada en la industria, que garantiza integridad y consistencia de los datos, así como consultas analíticas complejas fácilmente, además de ser accesible para todos por ser open source, así como también la simplicidad de utilizarla para los puntos 1.1 Carga de informacion y 1.4 Dispersión  
