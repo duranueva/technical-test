@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pg
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: pgadmin
+    env_file: .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  etl:
+    build: ./etl
+    container_name: etl
+    env_file: .env
+    working_dir: /app
+    volumes:
+      - ./etl:/app
+      - ./datasets:/app/datasets
+    depends_on:
+      - db
+volumes:
+  pgdata:
