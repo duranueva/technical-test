@@ -5,7 +5,7 @@
 * **Docker / Docker Compose**
 * **PostgreSQL 16**
 * **pgAdmin 4**
-* **Python 3.11** (en contenedor `etl`) con: `pandas`, `sqlalchemy[psycopg]`, `pyarrow` (opcional)
+* **Python 3.11** (en contenedor `etl`) con: `pandas`, `sqlalchemy[psycopg]`
 
 ## Prerrequisitos
 
