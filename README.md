@@ -244,6 +244,36 @@ docker compose down -v
 ### Sección 2
 * **Eficiencia en tiempo/espacio**  
   Evalué distintas opciones y usé el enfoque con **XOR** para calcular el número faltante en **O(1)** de espacio y **O(n)** de tiempo, lo que es óptimo y simple. Incluyo a continuación fuentes que consulté.  
+* **Proceso/Demostración para conocer elemento Extraído**
+  Principio del porque funciona mi algoritmo:
+
+  Partiendo de que los numeros pueden convertirse de base 10 a base 2, utilizamos las propiedades de XOR para obtener el numero faltante:
+
+  - XOR 
+    - Lo podemos ver como ¿A y B son diferentes? 
+      - ¿Sí? 1
+      - ¿No? 0
+    - Identidad:     a XOR a = 0         (son diferentes? R= No = 0)
+    - Cero:              a XOR 0 = 1         (es diferente de ‘nada’? Sí = 1)
+
+  Entonces calculamos, sabiendo que EXTRAIDO = N:
+
+  ```sql
+  ALL=     1 ^ 2 ^ ... ^ 100
+  NOW =    ALL ^ EXTRAIDO   
+      =    1 ^ 2 ^ ... ^ 100 ^ EXTRAIDO 
+      =    1 ^ 2 ^ (EXTRAIDO) ^ (N) ... ^ 100
+      =    1 ^ 2 ^ (EXTRAIDO ^ N) ... ^ 100
+      =    1 ^ 2 ^ (0) ... ^ 100                           (Como EXTRAIDO=N y a^a=0)
+      =    1 ^ 2 ^ ... ^ 100                               (Sin N)
+
+  RESULT 
+      = ALL ^ NOW 
+      = {1 ^ 2 ^ ... ^ 100}   ^   {1 ^ 2 ^ ... ^ 100}      (NOW es ALL, simplemente sin N)
+      = {(1^1)  ^  (2^2) ... (N) ... (100^100)}            (N no tiene pareja)
+      = {(0)  ^  (0) ... (N) ... (0)}                      (Como a^a=0)
+      = {N}                                                (Como N^0 = N)
+  ```
 
 
 
